@@ -3,40 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Admin - TechAccess</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="container" style="margin-top: 50px;">
-    <h2>🔍 Diagnóstico de Acceso</h2>
-    
-    <script src="js/app.js"></script>
-    <script>
-      console.clear();
-      console.log("🚀 Iniciando diagnóstico...");
+  <header>
+    <h1>TechAccess - Admin</h1>
+    <nav>
+      <button onclick="logout()" class="logout-btn">Cerrar Sesión</button>
+    </nav>
+  </header>
 
-      const usuarioStr = localStorage.getItem('usuarioActual');
-      console.log("Datos en localStorage:", usuarioStr);
-
-      if (!usuarioStr) {
-        document.body.innerHTML += `<h3 style="color:red;">❌ No hay sesión guardada</h3>`;
-        alert("No hay sesión. Regresa a admin-login.html");
-        window.location.href = 'admin-login.html';
-      } else {
-        const usuario = JSON.parse(usuarioStr);
-        console.log("Usuario encontrado:", usuario);
-
-        if (usuario.tipo === "admin") {
-          document.body.innerHTML += `
-            <h2 style="color:#d4af37;">✅ Bienvenido, ${usuario.nombre} (Admin)</h2>
-            <p>Acceso concedido correctamente.</p>
-            <button onclick="logout()">Cerrar Sesión</button>
-          `;
-        } else {
-          document.body.innerHTML += `<h3 style="color:red;">❌ No eres administrador</h3>`;
-        }
-      }
-    </script>
+  <div class="container dashboard-container">
+    <h2>Panel de Administración</h2>
+    <p>Bienvenido, Administrador</p>
+    <hr>
+    <button onclick="alert('Gestión de productos (CRUD) - Próximamente')">Gestionar Productos</button>
+    <button onclick="alert('Ver pedidos de clientes - Próximamente')">Ver Pedidos</button>
+    <button onclick="alert('Gestionar usuarios - Próximamente')">Gestionar Usuarios</button>
   </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const usuario = JSON.parse(localStorage.getItem('usuarioActual'));
+    if (!usuario || usuario.tipo !== "admin") {
+      window.location.href = 'admin-login.html';
+    }
+  </script>
 </body>
 </html>
