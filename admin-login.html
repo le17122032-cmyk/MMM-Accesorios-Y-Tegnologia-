@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login - TechAccess</title>
+  <title>Acceso Administrador - TechAccess</title>
   <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
   <div class="login-container">
-    <h2>Acceso Administrador</h2>
+    <h2> Acceso Administrador</h2>
     <form id="adminForm">
-      <input type="email" id="email" placeholder="Correo admin" required>
+      <input type="email" id="email" placeholder="Correo electrónico" required>
       <input type="password" id="password" placeholder="Contraseña" required>
-      <button type="submit">Entrar como Admin</button>
+      <button type="submit">Entrar como Administrador</button>
     </form>
+    <p style="text-align:center; margin-top:20px;">
+      <a href="index.html">← Volver al Inicio</a>
+    </p>
   </div>
 
   <script src="js/app.js"></script>
   <script>
-    document.getElementById('adminForm').onsubmit = (e) => {
+    document.getElementById('adminForm').onsubmit = function(e) {
       e.preventDefault();
+      
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
