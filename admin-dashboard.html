@@ -3,50 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Administración - TechAccess</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <title>Panel Admin - TechAccess</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <h1>TechAccess - Admin</h1>
-    <nav>
-      <a href="productos.html">Ver Tienda</a>
-      <button onclick="logout()" class="logout-btn">Cerrar Sesión</button>
-    </nav>
-  </header>
-
-  <div class="container">
-    <h2>👨‍💼 Panel de Administración</h2>
-
+  <div class="container" style="margin-top: 50px;">
+    <h2>🔍 Diagnóstico de Acceso</h2>
+    
     <script src="js/app.js"></script>
     <script>
-      // === DEPURACIÓN ===
-      console.log("=== Intentando acceder a Admin Dashboard ===");
-      
-      const usuarioActual = localStorage.getItem('usuarioActual');
-      console.log("Dato en localStorage:", usuarioActual);
+      console.clear();
+      console.log("🚀 Iniciando diagnóstico...");
 
-      let usuario = null;
-      if (usuarioActual) {
-        usuario = JSON.parse(usuarioActual);
-        console.log("Usuario detectado:", usuario);
-      }
+      const usuarioStr = localStorage.getItem('usuarioActual');
+      console.log("Datos en localStorage:", usuarioStr);
 
-      if (!usuario || usuario.tipo !== "admin") {
-        console.log("Acceso denegado - No es admin o no hay sesión");
-        alert("Acceso denegado. Debes iniciar sesión como administrador.");
+      if (!usuarioStr) {
+        document.body.innerHTML += `<h3 style="color:red;">❌ No hay sesión guardada</h3>`;
+        alert("No hay sesión. Regresa a admin-login.html");
         window.location.href = 'admin-login.html';
       } else {
-        console.log("✅ Acceso permitido como Admin");
-        document.write(`<p style="color:green; font-size:20px;">Bienvenido, ${usuario.nombre} 👑</p>`);
+        const usuario = JSON.parse(usuarioStr);
+        console.log("Usuario encontrado:", usuario);
+
+        if (usuario.tipo === "admin") {
+          document.body.innerHTML += `
+            <h2 style="color:#d4af37;">✅ Bienvenido, ${usuario.nombre} (Admin)</h2>
+            <p>Acceso concedido correctamente.</p>
+            <button onclick="logout()">Cerrar Sesión</button>
+          `;
+        } else {
+          document.body.innerHTML += `<h3 style="color:red;">❌ No eres administrador</h3>`;
+        }
       }
     </script>
-
-    <!-- El resto del panel solo se muestra si es admin -->
-    <div id="panelAdmin" style="display:none;">
-      <h2>Agregar Nuevo Producto</h2>
-      <!-- Aquí irá el formulario... (te lo doy completo después) -->
-    </div>
   </div>
 </body>
 </html>
