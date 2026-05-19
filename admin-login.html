@@ -3,151 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Administración - TechAccess</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .admin-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-    .admin-card {
-      background: #121212;
-      padding: 25px;
-      border-radius: 12px;
-      border: 1px solid #d4af37;
-      text-align: center;
-    }
-    .admin-card h3 {
-      color: #d4af37;
-      margin-bottom: 15px;
-    }
-  </style>
+  <title>Acceso Administrador</title>
+  <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-  <header>
-    <h1>TechAccess - Panel Admin</h1>
-    <nav>
-      <a href="productos.html" target="_blank">Ver Tienda</a>
-      <button onclick="logout()" class="logout-btn">Cerrar Sesión</button>
-    </nav>
-  </header>
-
-  <div class="container">
-    <h2>👨‍💼 Panel de Administración</h2>
-    <p>Bienvenido, <strong>Administrador</strong></p>
-
-    <!-- Agregar Producto -->
-    <h2 style="margin-top: 40px;">Agregar Nuevo Producto</h2>
-    <div class="login-container" style="max-width: 750px;">
-      <form id="formProducto">
-        <input type="text" id="nombre" placeholder="Nombre del producto" required>
-        <input type="number" id="precio" placeholder="Precio (MXN)" step="0.01" required>
-        <input type="text" id="categoria" placeholder="Categoría (Audio, Carga, Periféricos, etc.)" required>
-        
-        <textarea id="descripcion" rows="4" placeholder="Descripción del producto" required></textarea>
-        
-        <label style="color:#d4af37; margin:10px 0 5px; display:block;">Imagen del producto:</label>
-        <input type="file" id="imagen" accept="image/*" required>
-        
-        <button type="submit">Guardar Producto</button>
-      </form>
-    </div>
-
-    <hr style="margin: 40px 0;">
-    
-    <!-- Lista de Productos -->
-    <h2>Productos en la Tienda (<span id="contador">0</span>)</h2>
-    <div class="product-grid" id="listaProductos"></div>
+  <div class="login-container">
+    <h2>🔑 Acceso Administrador</h2>
+    <form id="adminForm">
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <button type="submit">Entrar como Administrador</button>
+    </form>
+    <p style="text-align:center; margin-top:20px;">
+      <a href="index.html">← Volver al Inicio</a>
+    </p>
   </div>
 
   <script src="js/app.js"></script>
   <script>
-    // Verificar que sea admin
-    const usuario = JSON.parse(localStorage.getItem('usuarioActual'));
-    if (!usuario || usuario.tipo !== "admin") {
-      alert("Acceso denegado");
-      window.location.href = 'admin-login.html';
-    }
-
-    // ====================== AGREGAR PRODUCTO ======================
-    document.getElementById('formProducto').onsubmit = function(e) {
+    document.getElementById('adminForm').onsubmit = function(e) {
       e.preventDefault();
-
-      const nombre = document.getElementById('nombre').value.trim();
-      const precio = parseFloat(document.getElementById('precio').value);
-      const categoria = document.getElementById('categoria').value.trim();
-      const descripcion = document.getElementById('descripcion').value.trim();
-      const archivo = document.getElementById('imagen').files[0];
-
-      if (!archivo) {
-        alert("Debes seleccionar una imagen");
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        let productos = obtenerProductos();
-
-        productos.push({
-          id: Date.now(),
-          nombre,
-          precio,
-          categoria,
-          descripcion,
-          img: event.target.result
-        });
-
-        localStorage.setItem('productos', JSON.stringify(productos));
-        
-        alert("✅ Producto agregado correctamente");
-        document.getElementById('formProducto').reset();
-        mostrarProductos();
-      };
-      reader.readAsDataURL(archivo);
-    };
-
-    // ====================== MOSTRAR PRODUCTOS ======================
-    function mostrarProductos() {
-      const productos = obtenerProductos();
-      const container = document.getElementById('listaProductos');
-      const contador = document.getElementById('contador');
       
-      contador.textContent = productos.length;
-      container.innerHTML = '';
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-      if (productos.length === 0) {
-        container.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:40px; color:#777;">No hay productos aún. Agrega uno arriba.</p>`;
-        return;
-      }
-
-      productos.forEach((p, index) => {
-        container.innerHTML += `
-          <div class="product-card">
-            <img src="${p.img}" alt="${p.nombre}">
-            <h3>${p.nombre}</h3>
-            <p class="precio">$${p.precio.toLocaleString('es-MX')}</p>
-            <p style="color:#aaa; font-size:0.9rem;">${p.categoria}</p>
-            <p style="font-size:0.85rem; color:#ccc;">${p.descripcion.substring(0, 80)}...</p>
-            <button onclick="eliminarProducto(${index})" style="background:#c0392b; margin-top:10px;">Eliminar</button>
-          </div>
-        `;
-      });
-    }
-
-    // Eliminar producto
-    window.eliminarProducto = function(index) {
-      if (confirm("¿Estás seguro de eliminar este producto?")) {
-        let productos = obtenerProductos();
-        productos.splice(index, 1);
-        localStorage.setItem('productos', JSON.stringify(productos));
-        mostrarProductos();
+      if (login(email, password, true)) {
+        window.location.href = 'admin-dashboard.html';
       }
     };
-
-    // Cargar productos al iniciar
-    mostrarProductos();
   </script>
 </body>
 </html>
