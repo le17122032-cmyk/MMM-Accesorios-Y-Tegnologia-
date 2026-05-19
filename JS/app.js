@@ -20,15 +20,17 @@ function inicializarDatos() {
             }
         ];
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        console.log("✅ Usuarios inicializados");
     }
 
     // ==================== PRODUCTOS ====================
     if (!localStorage.getItem('productos')) {
         localStorage.setItem('productos', JSON.stringify([]));
+        console.log("✅ Productos inicializados");
     }
 }
 
-// ==================== REGISTRO DE CLIENTE ====================
+// ==================== REGISTRO ====================
 function registrarCliente(nombre, email, password) {
     let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
     
@@ -66,6 +68,7 @@ function login(email, password, esAdmin = false) {
     }
 
     localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+    console.log("✅ Login exitoso:", usuario.nombre);
     return true;
 }
 
@@ -82,5 +85,5 @@ function logout() {
     }
 }
 
-// ==================== INICIALIZAR ====================
+// ==================== INICIALIZAR AL CARGAR ====================
 document.addEventListener('DOMContentLoaded', inicializarDatos);
