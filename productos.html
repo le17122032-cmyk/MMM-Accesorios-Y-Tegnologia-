@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Productos</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <title>Productos - TechAccess</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
-    <h1>Productos</h1>
+    <h1>TechAccess</h1>
     <nav>
       <a href="index.html">Inicio</a>
       <button onclick="location.href='login.html'">Iniciar Sesión</button>
@@ -23,37 +23,28 @@
 
   <script src="js/app.js"></script>
   <script>
-    function mostrarTodosLosProductos() {
+    function mostrarProductos() {
       const productos = obtenerProductos();
       const container = document.getElementById('todosProductos');
       container.innerHTML = '';
 
       if (productos.length === 0) {
-        container.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:50px; color:#888;">No hay productos disponibles aún.</p>';
+        container.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:50px;">No hay productos aún. El administrador puede agregarlos.</p>';
         return;
       }
 
       productos.forEach(p => {
         container.innerHTML += `
           <div class="product-card">
-            <img src="${p.img}" alt="${p.nombre}">
+            <img src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.nombre}">
             <h3>${p.nombre}</h3>
-            <p class="precio">$${p.precio.toLocaleString('es-MX')}</p>
-            <p style="padding:0 18px 15px; font-size:0.92rem; color:#ccc; min-height:70px;">
-              ${p.descripcion ? p.descripcion.substring(0, 110) + '...' : 'Producto de calidad premium'}
-            </p>
-            <button onclick="agregarAlCarrito(${p.id})">Agregar al carrito</button>
+            <p class="precio">$${p.precio ? p.precio.toLocaleString('es-MX') : '0'}</p>
+            <button onclick="alert('Producto agregado al carrito (demo)')">Agregar al carrito</button>
           </div>
         `;
       });
     }
-
-    function agregarAlCarrito(id) {
-      alert("✅ Producto agregado al carrito (Funcionalidad completa próximamente)");
-    }
-
-    // Cargar productos
-    mostrarTodosLosProductos();
+    mostrarProductos();
   </script>
 </body>
 </html>

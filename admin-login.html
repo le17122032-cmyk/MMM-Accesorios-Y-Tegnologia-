@@ -3,30 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acceso Administrador</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <title>Admin Login - TechAccess</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="login-container">
     <h2>🔑 Acceso Administrador</h2>
     <form id="adminForm">
-      <input type="email" id="email" placeholder="Correo electrónico" required>
-      <input type="password" id="password" placeholder="Contraseña" required>
+      <input type="email" id="email" placeholder="admin@techaccess.com" value="admin@techaccess.com" required>
+      <input type="password" id="password" placeholder="Contraseña" value="admin123" required>
       <button type="submit">Entrar como Administrador</button>
     </form>
-    <p style="text-align:center; margin-top:20px;">
-      <a href="index.html">← Volver al Inicio</a>
-    </p>
+    <p><a href="index.html">← Volver al Inicio</a></p>
   </div>
 
   <script src="js/app.js"></script>
   <script>
-    document.getElementById('adminForm').onsubmit = function(e) {
+    document.getElementById('adminForm').onsubmit = (e) => {
       e.preventDefault();
-      
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-
       if (login(email, password, true)) {
         window.location.href = 'admin-dashboard.html';
       }

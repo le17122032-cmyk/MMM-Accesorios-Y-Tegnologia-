@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro - TechAccess</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="login-container">
@@ -25,7 +25,6 @@
       const nombre = document.getElementById('nombre').value;
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-
       if (registrarCliente(nombre, email, password)) {
         window.location.href = 'login.html';
       }

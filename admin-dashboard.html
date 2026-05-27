@@ -3,32 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Administración</title>
+  <title>Panel Admin - TechAccess</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
     <h1>TechAccess - Admin</h1>
     <nav>
+      <a href="productos.html">Ver Tienda</a>
       <button onclick="logout()" class="logout-btn">Cerrar Sesión</button>
     </nav>
   </header>
 
-  <div class="container dashboard-container">
+  <div class="container">
     <h2>Panel de Administración</h2>
-    <p>Bienvenido, Administrador</p>
-    <hr>
-    <button onclick="alert('Gestión de productos (CRUD) - Próximamente')">Gestionar Productos</button>
-    <button onclick="alert('Ver pedidos de clientes - Próximamente')">Ver Pedidos</button>
-    <button onclick="alert('Gestionar usuarios - Próximamente')">Gestionar Usuarios</button>
+
+    <div class="login-container" style="max-width: 700px;">
+      <h3>Agregar Nuevo Producto</h3>
+      <form id="formProducto">
+        <input type="text" id="nombre" placeholder="Nombre del producto" required>
+        <input type="number" id="precio" placeholder="Precio" required>
+        <input type="text" id="categoria" placeholder="Categoría" required>
+        <textarea id="descripcion" placeholder="Descripción" rows="3"></textarea>
+        <input type="file" id="imagen" accept="image/*">
+        <button type="submit">Guardar Producto</button>
+      </form>
+    </div>
+
+    <h3>Productos Actuales</h3>
+    <div class="product-grid" id="listaProductos"></div>
   </div>
 
   <script src="js/app.js"></script>
   <script>
     const usuario = JSON.parse(localStorage.getItem('usuarioActual'));
     if (!usuario || usuario.tipo !== "admin") {
+      alert("Acceso denegado");
       window.location.href = 'admin-login.html';
     }
+
+    // Agregar producto
+    document.getElementById('formProducto').onsubmit = function(e) {
+      e.preventDefault();
+      alert("Producto guardado (versión básica)");
+      // Aquí puedes expandir después
+    };
+
+    // Mostrar productos
+    function mostrarProductosAdmin() {
+      const productos = obtenerProductos();
+      const container = document.getElementById('listaProductos');
+      container.innerHTML = productos.length ? '' : '<p>No hay productos</p>';
+    }
+    mostrarProductosAdmin();
   </script>
 </body>
 </html>

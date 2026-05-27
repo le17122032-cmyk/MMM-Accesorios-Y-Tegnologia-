@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar Sesión</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <title>Iniciar Sesión - TechAccess</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="login-container">
@@ -14,21 +14,16 @@
       <input type="password" id="password" placeholder="Contraseña" required>
       <button type="submit">Entrar</button>
     </form>
-    
-    <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
-    <p style="text-align:center; margin-top:15px;">
-      <a href="admin-login.html">¿Eres administrador?</a>
-    </p>
+    <p>¿No tienes cuenta? <a href="registro.html">Regístrate</a></p>
+    <p><a href="admin-login.html">¿Eres administrador?</a></p>
   </div>
 
   <script src="js/app.js"></script>
   <script>
-    document.getElementById('loginForm').onsubmit = function(e) {
+    document.getElementById('loginForm').onsubmit = (e) => {
       e.preventDefault();
-      
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-
       if (login(email, password)) {
         window.location.href = 'dashboard.html';
       }
